@@ -1,29 +1,71 @@
 package crushftp
 
 import (
+	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 type client struct {
-	baseURL url.URL
-	client  http.Client
+	baseURL    url.URL
+	httpClient http.Client
+	logger     *log.Logger
 }
 
-func NewClient(protocol, hostAndPort, username, password string) *client {
+type ClientOptions struct {
+	HostAndPort string
+	Http        HttpClientOptions
+	Logger      *log.Logger
+	Password    string
+	PathBase    string
+	Scheme      string
+	Username    string
+}
+
+type HttpClientOptions struct {
+	Insecure bool
+}
+
+const DefaultScheme = "https"
+
+func NewClient(opts ClientOptions) *client {
+	if opts.Scheme == "" {
+		opts.Scheme = DefaultScheme
+	}
+
+	opts.PathBase = strings.TrimSuffix(opts.PathBase, "/")
+	opts.PathBase = opts.PathBase + "/"
+
+	if opts.Logger == nil {
+		opts.Logger = log.New(ioutil.Discard, "", log.LstdFlags)
+	}
+
 	return &client{
 		baseURL: url.URL{
-			Scheme: protocol,
-			Host:   hostAndPort,
-			User:   url.UserPassword(username, password),
+			Scheme: opts.Scheme,
+			Host:   opts.HostAndPort,
+			Path:   opts.PathBase,
+			User:   url.UserPassword(opts.Username, opts.Password),
 		},
-		client: http.Client{},
+		httpClient: createHttpClient(opts.Http.Insecure),
+		logger:     opts.Logger,
+	}
+}
+
+func createHttpClient(insecure bool) http.Client {
+	transport := http.DefaultTransport.(*http.Transport).Clone()
+	transport.TLSClientConfig.InsecureSkipVerify = insecure
+
+	return http.Client{
+		Transport: transport,
 	}
 }
 
 func (c *client) request(path string, params map[string]string) (*http.Response, error) {
-	url := c.BaseUrl()
-	url.Path = path
+	url := c.baseURL
+	url.Path = url.Path + path
 
 	q := url.Query()
 	for param, value := range params {
@@ -31,14 +73,20 @@ func (c *client) request(path string, params map[string]string) (*http.Response,
 	}
 	url.RawQuery = q.Encode()
 
+	c.logger.Printf("%s %s", http.MethodGet, stripPassword(&url))
+
 	req, _ := http.NewRequest(http.MethodGet, url.String(), nil)
-	return c.client.Do(req)
+	return c.httpClient.Do(req)
 }
 
 func (c *client) command(command string) (*http.Response, error) {
-	return c.request("/WebInterface/function/", map[string]string{"command": command})
+	return c.request("WebInterface/function/", map[string]string{"command": command})
 }
 
-func (c *client) BaseUrl() url.URL {
-	return c.baseURL
+func stripPassword(u *url.URL) string {
+	_, passSet := u.User.Password()
+	if passSet {
+		return strings.Replace(u.String(), u.User.String()+"@", u.User.Username()+":***@", 1)
+	}
+	return u.String()
 }
