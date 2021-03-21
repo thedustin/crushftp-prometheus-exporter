@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-type client struct {
+type Client struct {
 	baseURL    url.URL
 	httpClient http.Client
 	logger     *log.Logger
@@ -30,7 +30,7 @@ type HttpClientOptions struct {
 
 const DefaultScheme = "https"
 
-func NewClient(opts ClientOptions) *client {
+func NewClient(opts ClientOptions) *Client {
 	if opts.Scheme == "" {
 		opts.Scheme = DefaultScheme
 	}
@@ -42,7 +42,7 @@ func NewClient(opts ClientOptions) *client {
 		opts.Logger = log.New(ioutil.Discard, "", log.LstdFlags)
 	}
 
-	return &client{
+	return &Client{
 		baseURL: url.URL{
 			Scheme: opts.Scheme,
 			Host:   opts.HostAndPort,
@@ -63,7 +63,7 @@ func createHttpClient(insecure bool) http.Client {
 	}
 }
 
-func (c *client) request(path string, params map[string]string) (*http.Response, error) {
+func (c *Client) request(path string, params map[string]string) (*http.Response, error) {
 	url := c.baseURL
 	url.Path = url.Path + path
 
@@ -79,7 +79,7 @@ func (c *client) request(path string, params map[string]string) (*http.Response,
 	return c.httpClient.Do(req)
 }
 
-func (c *client) command(command string) (*http.Response, error) {
+func (c *Client) command(command string) (*http.Response, error) {
 	return c.request("WebInterface/function/", map[string]string{"command": command})
 }
 

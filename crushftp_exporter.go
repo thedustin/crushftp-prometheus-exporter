@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"net/url"
@@ -10,30 +11,39 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/common/version"
+	"github.com/thedustin/crushftp-prometheus-exporter/collector"
 	"github.com/thedustin/crushftp-prometheus-exporter/crushftp"
 )
 
 var (
 	Name         = "crushftp_exporter"
-	ReadableName = "Crushftp Prometheus Exporter"
+	ReadableName = "CrushFTP Prometheus Exporter"
 )
 
 var cli struct {
 	ListenAddress    string   `env:"LISTEN_ADDRESS" help:"Address to listen on for web interface and telemetry" short:"l" default:":9100"`
 	MetricsEndpoint  string   `env:"METRICS_ENDPOINT" help:"Path under which to expose metrics" default:"/metrics"`
-	CrushftpUrl      *url.URL `env:"CRUSHFTP_URL" arg help:"URL to the CrushFTP http(s) server" default:"http://localhost"`
+	CrushftpUrl      *url.URL `env:"CRUSHFTP_URL" help:"URL to the CrushFTP http(s) server" short:"H" default:"http://localhost"`
 	CrushftpUsername string   `env:"CRUSHFTP_USERNAME" help:"Username for CrushFTP" short:"u"`
 	CrushftpPassword string   `env:"CRUSHFTP_PASSWORD" help:"Username for CrushFTP" short:"p"`
-	CrushftpInsecure bool     `env:"CRUSHFTP_INSECURE" help:"Ignore server certificate if using https" negatable`
+	CrushftpInsecure bool     `env:"CRUSHFTP_INSECURE" help:"Ignore server certificate if using https"`
 	Debug            bool     `help:"Enables debug mode and increases logging"`
+	Version          bool     `help:"Display the application version" short:"V"`
 }
 
 func main() {
-	logger := log.New(os.Stderr, "", log.LstdFlags)
+	logger := log.New(os.Stderr, "", log.LstdFlags|log.Lmicroseconds)
 
 	kong.Parse(&cli)
 
-	logger.Printf("%+v", cli)
+	if cli.Debug {
+		logger.Printf("Cli parameters: %+v", cli)
+	}
+
+	if cli.Version {
+		fmt.Println(version.Print(ReadableName))
+		return
+	}
 
 	r := prometheus.NewRegistry()
 	r.MustRegister(version.NewCollector(Name))
@@ -58,7 +68,8 @@ func main() {
 		opts.Logger = logger
 	}
 
-	// c := crushftp.NewClient(opts)
+	c := crushftp.NewClient(opts)
+	r.MustRegister(collector.NewCollector(c, opts.Logger))
 
 	logger.Printf(
 		"Starting exporter version %s at %q to collect data from CrushFTP at %q",
