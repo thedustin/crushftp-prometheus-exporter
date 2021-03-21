@@ -9,13 +9,27 @@ type unixDateTime struct {
 	time.Time
 }
 
-func (c *unixDateTime) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	var v string
-	d.DecodeElement(&v, &start)
-	parse, err := time.Parse(time.UnixDate, v)
+func (t *unixDateTime) Parse(s string) error {
+	parsed, err := time.Parse(time.UnixDate, s)
+
 	if err != nil {
 		return err
 	}
-	*c = unixDateTime{parse}
+
+	t.Time = parsed
+
+	return nil
+}
+
+func (c *unixDateTime) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	var s string
+	d.DecodeElement(&s, &start)
+
+	err := c.Parse(s)
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

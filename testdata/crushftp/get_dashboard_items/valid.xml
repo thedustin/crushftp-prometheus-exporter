@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+  <response_status>OK</response_status>
+  <response_type>properties</response_type>
+  <response_data>
+    <result_value type="properties">
+      <ram_free>486523928</ram_free>
+      <downloaded_files>627308</downloaded_files>
+      <server_cpu>0</server_cpu>
+      <enterprise_level>0</enterprise_level>
+      <keywords_cache_size/>
+      <successful_logins>7772218</successful_logins>
+      <rid/>
+      <java_info>/usr/lib/jvm/java-11-openjdk-amd64/bin/java&#13;
+            11.0.8.7, 64 bit&#13;
+            Linux</java_info>
+      <hostname>example.org</hostname>
+      <replicated_received_message_count/>
+      <machine_is_x>false</machine_is_x>
+      <concurrent_users>100</concurrent_users>
+      <about_info_str>CrushFTP Version 9.2.9_73 from CrushFTP, LLC</about_info_str>
+      <registration_name>JOHN DOE</registration_name>
+      <running_event_threads>0</running_event_threads>
+      <update_available_html>&lt;html&gt;&lt;body&gt;</update_available_html>
+      <version_info_str>Version 9.2.9</version_info_str>
+      <memcache_objects>0</memcache_objects>
+      <registration_email>JOHN-DOE@EXAMPLE.ORG</registration_email>
+      <failed_logins>44672</failed_logins>
+      <os_cpu>0</os_cpu>
+      <thread_pool_available>122</thread_pool_available>
+      <ram_pending_bytes_s3_download>0</ram_pending_bytes_s3_download>
+      <machine_is_solaris>false</machine_is_solaris>
+      <current_download_speed>0</current_download_speed>
+      <server_start_time>Tue Jan 02 12:14:16 CET 2021</server_start_time>
+      <machine_is_x_10_5_plus>false</machine_is_x_10_5_plus>
+      <replicated_servers_pendingResponses>0</replicated_servers_pendingResponses>
+      <replicated_servers_sent_1/>
+      <replicated_servers_sent_2/>
+      <replicated_servers_sent_3/>
+      <total_server_bytes_received>32223131242</total_server_bytes_received>
+      <ram_pending_bytes_s3_upload>0</ram_pending_bytes_s3_upload>
+      <sub_version_info_str>_60</sub_version_info_str>
+      <total_server_bytes_sent>27885990912</total_server_bytes_sent>
+      <replicated_servers_lastActive/>
+      <replicated_servers_count>0</replicated_servers_count>
+      <replicated_servers_sent_4/>
+      <replicated_servers_sent_5/>
+      <low_memory/>
+      <update_available_version>Version 9.4.4</update_available_version>
+      <machine_is_linux>true</machine_is_linux>
+      <machine_is_unix>false</machine_is_unix>
+      <ram_pending_bytes>0</ram_pending_bytes>
+      <uploaded_files>493131</uploaded_files>
+      <replicated_servers>[]</replicated_servers>
+      <max_threads>200</max_threads>
+      <recent_drives/>
+      <exif_item_count/>
+      <replicated_servers_pending_user_sync>0</replicated_servers_pending_user_sync>
+      <server_list type="vector">
+        <server_list_subitem type="properties">
+          <connected_users>3</connected_users>
+          <busyMessage/>
+          <reverseProxyUrl/>
+          <reverseProxyPath/>
+          <ip>lookup</ip>
+          <ftp_aware_router>true</ftp_aware_router>
+          <display>https://1.2.3.4/ ( Web, SSL ) is running, 0 users connected. Connections Processed : 47499</display>
+          <allow_webdav>false</allow_webdav>
+          <linkedServer>MainUsers</linkedServer>
+          <explicit_ssl>true</explicit_ssl>
+          <ip_restrictions type="vector"/>
+          <enabled>true</enabled>
+          <running>true</running>
+          <proxy_header>false</proxy_header>
+          <new_http>true</new_http>
+          <port>443</port>
+          <connection_number>47499</connection_number>
+          <serverType>HTTPS</serverType>
+          <server_ip>auto</server_ip>
+          <explicit_tls>true</explicit_tls>
+          <reverseProxyDomain/>
+          <require_encryption>false</require_encryption>
+        </server_list_subitem>
+        <server_list_subitem type="properties">
+          <connected_users>1</connected_users>
+          <reverseProxyUrl/>
+          <ssh_cipher_list>aes128-ctr,aes192-ctr,aes256-ctr,3des-ctr,3des-cbc,blowfish-cbc,arcfour,arcfour128,arcfour256,aes128-gcm@openssh.com,aes256-gcm@openssh.com</ssh_cipher_list>
+          <ssh_dsa_enabled>true</ssh_dsa_enabled>
+          <max_channels>5</max_channels>
+          <max_async_req>200</max_async_req>
+          <ip_restrictions type="vector"/>
+          <ssh_connect_threads>2</ssh_connect_threads>
+          <enabled>true</enabled>
+          <window_space>4096</window_space>
+          <running>true</running>
+          <new_http>true</new_http>
+          <connection_number>14289802</connection_number>
+          <ssh_accept_threads>2</ssh_accept_threads>
+          <ssh_local_port>37123</ssh_local_port>
+          <server_ip>auto</server_ip>
+          <ssh_auth_timeout>30</ssh_auth_timeout>
+          <explicit_tls>true</explicit_tls>
+          <key_exchanges>curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256,diffie-hellman-group18-sha512,diffie-hellman-group17-sha512,diffie-hellman-group16-sha512,diffie-hellman-group15-sha512,diffie-hellman-group14-sha256,diffie-hellman-group14-sha1,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha1,rsa2048-sha256,rsa1024-sha1</key_exchanges>
+          <ssh_mac_list>hmac-sha256,hmac-sha2-256,hmac-sha256@ssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-256-96,hmac-sha512,hmac-sha2-512,hmac-sha512@ssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-512-96,hmac-sha1,hmac-sha1-etm@openssh.com,hmac-sha1-96,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-ripemd160-etm@openssh.com,hmac-md5,hmac-md5-etm@openssh.com,hmac-md5-96</ssh_mac_list>
+          <ssh_dsa_key>./ssh_host_dsa_key</ssh_dsa_key>
+          <ftp_welcome_message>Example SFTP</ftp_welcome_message>
+          <reverseProxyDomain/>
+          <require_encryption>false</require_encryption>
+          <min_dh_size>4096</min_dh_size>
+          <busyMessage/>
+          <reverseProxyPath/>
+          <display>sftp://1.2.3.4:22/ ( SSH ) is running, 0 users connected. Connections Processed : 14889802</display>
+          <ip>lookup</ip>
+          <ssh_debug_log>false</ssh_debug_log>
+          <linkedServer>MainUsers</linkedServer>
+          <explicit_ssl>true</explicit_ssl>
+          <max_packet_length>70000</max_packet_length>
+          <ssh_rsa_enabled>true</ssh_rsa_enabled>
+          <ssh_keep_alive_interval>30</ssh_keep_alive_interval>
+          <proxy_header>false</proxy_header>
+          <ssh_transfer_threads>2</ssh_transfer_threads>
+          <ssh_text_encoding>UTF8</ssh_text_encoding>
+          <port>22</port>
+          <serverType>SFTP</serverType>
+          <server_item_name>SFTP Name</server_item_name>
+          <ssh_rsa_key>./ssh_host_rsa_key</ssh_rsa_key>
+          <ssh_require_password>true</ssh_require_password>
+          <ssh_require_publickey>false</ssh_require_publickey>
+          <ssh_session_timeout>120</ssh_session_timeout>
+        </server_list_subitem>
+        <server_list_subitem type="properties">
+          <connected_users>7</connected_users>
+          <vip2/>
+          <reverseProxyUrl/>
+          <ip_restrictions type="vector"/>
+          <customKeystore/>
+          <connection_number>930133</connection_number>
+          <https_redirect>true</https_redirect>
+          <server_ip>auto</server_ip>
+          <explicit_tls>false</explicit_tls>
+          <ftp_welcome_message/>
+          <vip/>
+          <reverseProxyDomain/>
+          <dest_port/>
+          <needClientAuth>false</needClientAuth>
+          <recaptcha_version>1</recaptcha_version>
+          <commandDelayInterval>0</commandDelayInterval>
+          <min_dh_size>2048</min_dh_size>
+          <busyMessage/>
+          <customKeystoreCertPass/>
+          <adapter>en0</adapter>
+          <reverseProxyPath/>
+          <allow_webdav>false</allow_webdav>
+          <ip>lookup</ip>
+          <linkedServer>MainUsers</linkedServer>
+          <priority>1</priority>
+          <require_secure>true</require_secure>
+          <max_dh_size/>
+          <port>80</port>
+          <dest_ip/>
+          <serverType>HTTP</serverType>
+          <httpFormat>HTML</httpFormat>
+          <ftp_aware_router>false</ftp_aware_router>
+          <index2>2</index2>
+          <enabled>true</enabled>
+          <running>true</running>
+          <new_http>true</new_http>
+          <serverbeatEnabled>true</serverbeatEnabled>
+          <netmask>255.255.255.0</netmask>
+          <require_encryption>false</require_encryption>
+          <customKeystorePass/>
+          <display>http://1.2.3.4/ ( Web ) is running, 0 users connected. Connections Processed : 930133</display>
+          <explicit_ssl>false</explicit_ssl>
+          <httpReverseProxy/>
+          <proxy_header>false</proxy_header>
+          <index1>1</index1>
+          <server_item_name/>
+          <pasv_ports>1025-65535</pasv_ports>
+          <httpTrustHeaderVariables/>
+        </server_list_subitem>
+      </server_list>
+      <current_upload_speed>0</current_upload_speed>
+      <max_max_users>32768</max_max_users>
+      <connected_unique_ips>1622</connected_unique_ips>
+      <replication_vfs_count>0</replication_vfs_count>
+      <replicated_servers_queue_5/>
+      <replicated_servers_queue_4/>
+      <replicated_servers_queue_3/>
+      <recent_hammering/>
+      <replicated_servers_queue_2/>
+      <replicated_servers_queue_1/>
+      <jce_installed>true</jce_installed>
+      <last_logins type="vector">
+        <last_logins_subitem type="properties">
+          <user_name>john_doe</user_name>
+          <ip>1.2.3.4</ip>
+          <dns>dns.example.org</dns>
+          <login_date_formatted>01/02/2021 14:05:16.457</login_date_formatted>
+        </last_logins_subitem>
+        <!-- ... -->
+      </last_logins>
+      <replicated_write_prefs_count/>
+      <replicated_user_changes_count/>
+      <thread_pool_busy>26</thread_pool_busy>
+      <replicated_job_changes_count/>
+      <ram_max>6442450944</ram_max>
+      <machine_is_windows>false</machine_is_windows>
+      <update_available>true</update_available>
+      <replication_status type="properties"/>
+    </result_value>
+  </response_data>
+</result>

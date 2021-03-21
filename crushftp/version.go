@@ -8,36 +8,49 @@ import (
 )
 
 type version struct {
-	Major  int64
-	Minor  int64
-	Bugfix int64
+	Major int64
+	Minor int64
+	Patch int64
+}
+
+func (v *version) Parse(s string) error {
+	part := strings.Split(s, ".")
+
+	var major, minor, patch int64
+	var err error
+
+	if major, err = strconv.ParseInt(part[0], 10, 64); err != nil {
+		return err
+	}
+
+	if minor, err = strconv.ParseInt(part[1], 10, 64); err != nil {
+		return err
+	}
+	if patch, err = strconv.ParseInt(part[2], 10, 64); err != nil {
+		return err
+	}
+
+	v.Major = major
+	v.Minor = minor
+	v.Patch = patch
+
+	return nil
+}
+
+func extractVersionFromString(s string) string {
+	return strings.TrimPrefix(s, "Version ")
 }
 
 func (v *version) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	var s string
 	d.DecodeElement(&s, &start)
 
-	plainVersion := strings.TrimPrefix(s, "Version ")
-	versionParts := strings.Split(plainVersion, ".")
+	s = extractVersionFromString(s)
 
-	var major, minor, bugfix int64
-	var err error
+	err := v.Parse(s)
 
-	if major, err = strconv.ParseInt(versionParts[0], 10, 64); err != nil {
-		return nil
-	}
-
-	if minor, err = strconv.ParseInt(versionParts[1], 10, 64); err != nil {
-		return nil
-	}
-	if bugfix, err = strconv.ParseInt(versionParts[2], 10, 64); err != nil {
-		return nil
-	}
-
-	*v = version{
-		Major:  major,
-		Minor:  minor,
-		Bugfix: bugfix,
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -48,6 +61,6 @@ func (v version) String() string {
 		"%d.%d.%d",
 		v.Major,
 		v.Minor,
-		v.Bugfix,
+		v.Patch,
 	)
 }

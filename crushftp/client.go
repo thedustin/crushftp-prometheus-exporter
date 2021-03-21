@@ -10,7 +10,7 @@ import (
 
 type Client struct {
 	baseURL    url.URL
-	httpClient http.Client
+	httpClient *http.Client
 	logger     *log.Logger
 }
 
@@ -54,11 +54,11 @@ func NewClient(opts ClientOptions) *Client {
 	}
 }
 
-func createHttpClient(insecure bool) http.Client {
+func createHttpClient(insecure bool) *http.Client {
 	transport := http.DefaultTransport.(*http.Transport).Clone()
 	transport.TLSClientConfig.InsecureSkipVerify = insecure
 
-	return http.Client{
+	return &http.Client{
 		Transport: transport,
 	}
 }
