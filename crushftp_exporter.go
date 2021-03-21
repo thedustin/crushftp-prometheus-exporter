@@ -55,7 +55,7 @@ func main() {
 		},
 	)
 
-	opts := crushftp.ClientOptions{
+	clientOpts := crushftp.ClientOptions{
 		HostAndPort: cli.CrushftpUrl.Host,
 		Http:        crushftp.HttpClientOptions{Insecure: cli.CrushftpInsecure},
 		Password:    cli.CrushftpPassword,
@@ -64,12 +64,17 @@ func main() {
 		Username:    cli.CrushftpUsername,
 	}
 
-	if cli.Debug {
-		opts.Logger = logger
+	collectorOpts := collector.CollectorOpts{
+		ErrorLogger: logger,
 	}
 
-	c := crushftp.NewClient(opts)
-	r.MustRegister(collector.NewCollector(c, opts.Logger))
+	if cli.Debug {
+		clientOpts.Logger = logger
+		collectorOpts.Logger = logger
+	}
+
+	c := crushftp.NewClient(clientOpts)
+	r.MustRegister(collector.NewCollector(c, collectorOpts))
 
 	logger.Printf(
 		"Starting exporter version %s at %q to collect data from CrushFTP at %q",

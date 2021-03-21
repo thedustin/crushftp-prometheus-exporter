@@ -13,9 +13,14 @@ var (
 	Namespace = "crushftp"
 )
 
+type CollectorOpts struct {
+	Logger, ErrorLogger *log.Logger
+}
+
 type collector struct {
 	crushftpClient *crushftp.Client
 	logger         *log.Logger
+	errorLogger    *log.Logger
 
 	up           prometheus.Gauge
 	scrapesTotal prometheus.Counter
@@ -49,14 +54,19 @@ type collector struct {
 	uptimeSeconds   prometheus.Gauge
 }
 
-func NewCollector(crushftpClient *crushftp.Client, logger *log.Logger) *collector {
-	if logger == nil {
-		logger = log.New(ioutil.Discard, "", log.LstdFlags)
+func NewCollector(crushftpClient *crushftp.Client, opts CollectorOpts) *collector {
+	if opts.Logger == nil {
+		opts.Logger = log.New(ioutil.Discard, "", log.LstdFlags)
+	}
+
+	if opts.ErrorLogger == nil {
+		opts.ErrorLogger = log.Default()
 	}
 
 	return &collector{
 		crushftpClient: crushftpClient,
-		logger:         logger,
+		logger:         opts.Logger,
+		errorLogger:    opts.ErrorLogger,
 
 		up: prometheus.NewGauge(prometheus.GaugeOpts{
 			Name: prometheus.BuildFQName(Namespace, "", "up"),
@@ -217,10 +227,8 @@ func (c *collector) Collect(ch chan<- prometheus.Metric) {
 	resp, err := c.crushftpClient.GetDashboardItems()
 	if err != nil {
 		c.up.Set(0)
-		// _ = level.Warn(c.logger).Log(
-		// 	"msg", "failed to fetch and decode node stats",
-		// 	"err", err,
-		// )
+
+		c.errorLogger.Printf("failed to fetch and decode crushftp stats: %s", err)
 		return
 	}
 
