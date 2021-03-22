@@ -21,11 +21,11 @@ var (
 )
 
 var cli struct {
-	ListenAddress    string   `env:"LISTEN_ADDRESS" help:"Address to listen on for web interface and telemetry" short:"l" default:":9100"`
+	ListenAddress    string   `env:"LISTEN_ADDRESS" help:"Address to listen on" short:"l" default:":9100"`
 	MetricsEndpoint  string   `env:"METRICS_ENDPOINT" help:"Path under which to expose metrics" default:"/metrics"`
 	CrushftpUrl      *url.URL `env:"CRUSHFTP_URL" help:"URL to the CrushFTP http(s) server" short:"H" default:"http://localhost"`
-	CrushftpUsername string   `env:"CRUSHFTP_USERNAME" help:"Username for CrushFTP" short:"u"`
-	CrushftpPassword string   `env:"CRUSHFTP_PASSWORD" help:"Username for CrushFTP" short:"p"`
+	CrushftpUsername string   `env:"CRUSHFTP_USERNAME" help:"CrushFTP admin username" short:"u"`
+	CrushftpPassword string   `env:"CRUSHFTP_PASSWORD" help:"CrushFTP admin password" short:"p"`
 	CrushftpInsecure bool     `env:"CRUSHFTP_INSECURE" help:"Ignore server certificate if using https"`
 	Debug            bool     `help:"Enables debug mode and increases logging"`
 	Version          bool     `help:"Display the application version" short:"V"`
