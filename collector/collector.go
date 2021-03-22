@@ -1,7 +1,7 @@
 package collector
 
 import (
-	"io/ioutil"
+	"io"
 	"log"
 	"time"
 
@@ -56,7 +56,7 @@ type collector struct {
 
 func NewCollector(crushftpClient *crushftp.Client, opts CollectorOpts) *collector {
 	if opts.Logger == nil {
-		opts.Logger = log.New(ioutil.Discard, "", log.LstdFlags)
+		opts.Logger = log.New(io.Discard, "", log.LstdFlags)
 	}
 
 	if opts.ErrorLogger == nil {

@@ -1,7 +1,7 @@
 package crushftp
 
 import (
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"net/url"
@@ -39,7 +39,7 @@ func NewClient(opts ClientOptions) *Client {
 	opts.PathBase = opts.PathBase + "/"
 
 	if opts.Logger == nil {
-		opts.Logger = log.New(ioutil.Discard, "", log.LstdFlags)
+		opts.Logger = log.New(io.Discard, "", log.LstdFlags)
 	}
 
 	return &Client{

@@ -1,10 +1,11 @@
 package crushftp
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"testing"
 	"time"
 
@@ -43,9 +44,9 @@ func TestGetDashboardItemsUnmarshal(t *testing.T) {
 	}
 
 	for testFile, expected := range tests {
-		testServer := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-			f, _ := ioutil.ReadFile(getTestDataFile(testFile))
+		f, _ := io.ReadAll(getTestDataFile(testFile, t))
 
+		testServer := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
 			res.Write(f)
 		}))
 		defer func() { testServer.Close() }()
@@ -69,6 +70,12 @@ func TestGetDashboardItemsUnmarshal(t *testing.T) {
 	}
 }
 
-func getTestDataFile(filename string) string {
-	return "../testdata/crushftp/get_dashboard_items/" + filename + ".xml"
+func getTestDataFile(filename string, t *testing.T) io.Reader {
+	f, err := os.Open("../testdata/crushftp/get_dashboard_items/" + filename + ".xml")
+
+	if err != nil {
+		t.Fatalf("cannot open test file: %s", err)
+	}
+
+	return f
 }

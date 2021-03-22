@@ -2,7 +2,6 @@ package main
 
 import (
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -88,9 +87,8 @@ crushftp_up 1
 crushftp_uptime_seconds 1
 `
 
+	f, _ := io.ReadAll(getTestDataFile("valid", t))
 	testServer := httptest.NewServer(http.HandlerFunc(func(res http.ResponseWriter, req *http.Request) {
-		f, _ := ioutil.ReadFile("testdata/crushftp/get_dashboard_items/valid.xml")
-
 		res.Write(f)
 	}))
 	defer func() { testServer.Close() }()
@@ -128,4 +126,14 @@ crushftp_uptime_seconds 1
 	if !cmp.Equal(expected, actual) {
 		t.Fatalf("metrics response mismatched:\n%s", cmp.Diff(expected, actual))
 	}
+}
+
+func getTestDataFile(filename string, t *testing.T) io.Reader {
+	f, err := os.Open("testdata/crushftp/get_dashboard_items/" + filename + ".xml")
+
+	if err != nil {
+		t.Fatalf("cannot open test file: %s", err)
+	}
+
+	return f
 }

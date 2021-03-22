@@ -3,7 +3,7 @@ package crushftp
 import (
 	"encoding/xml"
 	"fmt"
-	"io/ioutil"
+	"io"
 )
 
 type DashboardItemsResponse struct {
@@ -53,7 +53,7 @@ func (c *Client) GetDashboardItems() (*DashboardItemsResponse, error) {
 
 	v := &DashboardItemsResponse{}
 
-	s, err := ioutil.ReadAll(resp.Body)
+	s, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
