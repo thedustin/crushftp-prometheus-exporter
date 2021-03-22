@@ -51,7 +51,7 @@ By default the exporter listens on port 9100 and provides the metrics under the 
 | `-h, --help` |  |  | Show context-sensitive help |
 | `-l, --listen-address` | `":9100"` | `LISTEN_ADDRESS` | Address to listen on |
 | `    --metrics-endpoint` | `"/metrics"` | `METRICS_ENDPOINT` | Path under which to expose metrics |
-| `-H, --crushftp-url` | `"http://localhost"` | `CRUSHFTP_URL` | URL to the CrushFTP http(s) server |
+| `-H, --crushftp-url` | `"http://localhost"` | `CRUSHFTP_URL` | Base URL to the CrushFTP http(s) server |
 | `-u, --crushftp-username` |  | `CRUSHFTP_USERNAME` | CrushFTP admin username<br/><br/>⚠️ It's recommended to use a restricted admin user for monitoring. You can configure the admin restrictions for an user in the user managment section "Admin" > "Setup Roles". See [UserManagerAdminRestricted](https://www.crushftp.com/crush9wiki/Wiki.jsp?page=UserManagerAdminRestricted) for more information |
 | `-p, --crushftp-password` |  | `CRUSHFTP_PASSWORD` | CrushFTP admin password<br/>It's recommended to pass this as environment variable |
 | `-l, --crushftp-insecure` | `false` | `CRUSHFTP_INSECURE` | Ignore server certificate if using https |
@@ -59,7 +59,7 @@ By default the exporter listens on port 9100 and provides the metrics under the 
 | `-V, --version` |  |  | Display the application version and exit |
 
 
-## Contributing to this checklist
+## Contributing to this project
 
 If you have suggestions for improving the prometheus exporter, please
 [open an issue or pull request on GitHub](https://github.com/thedustin/crushftp-prometheus-exporter/).

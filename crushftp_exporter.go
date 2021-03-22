@@ -23,7 +23,7 @@ var (
 var cli struct {
 	ListenAddress    string   `env:"LISTEN_ADDRESS" help:"Address to listen on" short:"l" default:":9100"`
 	MetricsEndpoint  string   `env:"METRICS_ENDPOINT" help:"Path under which to expose metrics" default:"/metrics"`
-	CrushftpUrl      *url.URL `env:"CRUSHFTP_URL" help:"URL to the CrushFTP http(s) server" short:"H" default:"http://localhost"`
+	CrushftpUrl      *url.URL `env:"CRUSHFTP_URL" help:"Base URL to the CrushFTP http(s) server" short:"H" default:"http://localhost"`
 	CrushftpUsername string   `env:"CRUSHFTP_USERNAME" help:"CrushFTP admin username" short:"u"`
 	CrushftpPassword string   `env:"CRUSHFTP_PASSWORD" help:"CrushFTP admin password" short:"p"`
 	CrushftpInsecure bool     `env:"CRUSHFTP_INSECURE" help:"Ignore server certificate if using https"`
