@@ -17,6 +17,9 @@ type CollectorOpts struct {
 	Logger, ErrorLogger *log.Logger
 }
 
+// collector to transform data from crushftp into prometheus format
+// Using prometheus.Desc instead of real Counter as the counter api does not allow
+// to reset the value (e.g. on a server restart)
 type collector struct {
 	crushftpClient *crushftp.Client
 	logger         *log.Logger

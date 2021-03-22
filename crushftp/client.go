@@ -8,12 +8,14 @@ import (
 	"strings"
 )
 
+// Client to communicate with the http(s) "api" of a crushftp server
 type Client struct {
 	baseURL    url.URL
 	httpClient *http.Client
 	logger     *log.Logger
 }
 
+// ClientOptions used to create a new client
 type ClientOptions struct {
 	HostAndPort string
 	Http        HttpClientOptions
@@ -30,6 +32,7 @@ type HttpClientOptions struct {
 
 const DefaultScheme = "https"
 
+// NewClient creates a new api client
 func NewClient(opts ClientOptions) *Client {
 	if opts.Scheme == "" {
 		opts.Scheme = DefaultScheme

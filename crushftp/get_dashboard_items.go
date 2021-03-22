@@ -41,6 +41,8 @@ type DashboardServer struct {
 	ServerType       string `xml:"serverType"`
 }
 
+// GetDashboardItems fetches the data used to display the admin web dashboard
+// which contains all relevant metrics
 func (c *Client) GetDashboardItems() (*DashboardItemsResponse, error) {
 	resp, err := c.command("getDashboardItems")
 	if err != nil {
