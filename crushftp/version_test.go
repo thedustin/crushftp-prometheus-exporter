@@ -19,7 +19,7 @@ func TestVersionExtraction(t *testing.T) {
 
 func TestVersionParse(t *testing.T) {
 	tests := map[string]*version{
-		"1.2.3": &version{Major: 1, Minor: 2, Patch: 3},
+		"1.2.3": {Major: 1, Minor: 2, Patch: 3},
 	}
 
 	for versionStr, expected := range tests {
@@ -37,7 +37,7 @@ func TestVersionParse(t *testing.T) {
 
 func TestVersionStringify(t *testing.T) {
 	tests := map[*version]string{
-		&version{Major: 1, Minor: 2, Patch: 3}: "1.2.3",
+		{Major: 1, Minor: 2, Patch: 3}: "1.2.3",
 	}
 
 	for v, expectedStr := range tests {
