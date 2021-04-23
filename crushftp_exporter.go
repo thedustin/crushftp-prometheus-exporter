@@ -45,16 +45,6 @@ func main() {
 		return
 	}
 
-	r := prometheus.NewRegistry()
-	r.MustRegister(version.NewCollector(Name))
-
-	handler := promhttp.HandlerFor(
-		r,
-		promhttp.HandlerOpts{
-			ErrorHandling: promhttp.ContinueOnError,
-		},
-	)
-
 	clientOpts := crushftp.ClientOptions{
 		HostAndPort: cli.CrushftpUrl.Host,
 		Http:        crushftp.HttpClientOptions{Insecure: cli.CrushftpInsecure},
@@ -73,17 +63,12 @@ func main() {
 		collectorOpts.Logger = logger
 	}
 
+	prometheus.MustRegister(version.NewCollector(Name))
+
 	c := crushftp.NewClient(clientOpts)
-	r.MustRegister(collector.NewCollector(c, collectorOpts))
+	prometheus.MustRegister(collector.NewCollector(c, collectorOpts))
 
-	logger.Printf(
-		"Starting exporter version %s at %q to collect data from CrushFTP at %q",
-		version.Version,
-		cli.ListenAddress,
-		cli.CrushftpUrl,
-	)
-
-	http.Handle(cli.MetricsEndpoint, handler)
+	http.Handle(cli.MetricsEndpoint, promhttp.Handler())
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Location", cli.MetricsEndpoint)
 
@@ -95,6 +80,13 @@ func main() {
              </body>
              </html>`))
 	})
+
+	logger.Printf(
+		"Starting exporter version %s at %q to collect data from CrushFTP at %q",
+		version.Version,
+		cli.ListenAddress,
+		cli.CrushftpUrl,
+	)
 
 	logger.Fatal(http.ListenAndServe(cli.ListenAddress, nil))
 }
